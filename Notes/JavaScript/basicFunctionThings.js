@@ -24,7 +24,6 @@ let radius = 8;
 if (radius > 0) {
     const PI = Math.PI;
 }
-
 console.log(radius);
 console.log(PI);
 
@@ -34,7 +33,6 @@ let radius2 = 8;
 if (radius2 > 0) {
     var PI = Math.PI;
 }
-
 console.log(radius);
 console.log(PI);
 
@@ -78,12 +76,13 @@ function callTwice(functionToCall) {
     functionToCall();
     functionToCall();
 }
-
 callTwice(collectEggs);
 
 //Higher Order Functions- Returning a Function
     //•If createMysteryFunction is called, no action will happen as the function is being returned
     //•Need to capture the value of the function, and then it can be called.
+    //•Can also use 'Factory Functions' for creating other functions
+        //•Here the factory function is createBetweenCheck which creates a test with min 1 and max 10.
 
 function createMysteryFunction() {
     const rand = Math.random();
@@ -100,3 +99,58 @@ function createMysteryFunction() {
 
 const createdFunction = createMysteryFunction();
 createdFunction();
+
+function createBetweenCheck(min, max) {
+    return function(num) {
+        return num >= min && num <= max;
+    }
+}
+const testRange = createBetweenCheck(1, 10);
+console.log(testRange(6));
+
+//Defining methods
+    //•Functions are independent and don't require objects, methods are functions linked to objects.
+    //•Are properties of objects
+    //•All methods are functions but not all functions are methods
+    //•The shorthand syntax is used for defnition of customMath.add
+
+const customMath = {
+    PI: Math.PI,
+    square: function(num) {
+        return num * num;
+    },
+    cube: function(num) {
+        return num ** 3;
+    },
+    add(x, y) {
+        return x + y;
+    }
+}
+console.log(customMath.square(customMath.PI));
+console.log(customMath.cube(customMath.PI));
+console.log(customMath.add(customMath.PI, 2));
+
+//The 'this' Keyword
+    //•Use the this keyword to access other properties on the same object
+    //•The value of 'this' depends on the invocation of the function it is used in
+    //•The this keyword is usually connected to the 'window' top level JS object
+
+const person = {
+    name:'Jake',
+    favoriteColor: 'red',
+    combine: function() {
+        console.log(`${this.name}: ${this.favoriteColor}`)
+    }
+}
+person.combine();
+
+//Using try/catch
+    //•Used when errors are expected
+    //•catches error from crashing everything
+    //•Can get error message using catch parameter
+
+try {
+    anUndefinedVariable.toUppercase();
+} catch (error) {
+    console.log(`YOU MADE A MISTAKE: ${error}`);
+}
